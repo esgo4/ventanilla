@@ -1,4 +1,9 @@
 <?php
+
+use yii\helpers\Html;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
+
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
@@ -8,23 +13,47 @@ $this->title = 'My Yii Application';
         <div class="content-header">
             <div class="jumbotron text-center bg-transparent" style="background-color: rgba(0, 0, 0, 0.5) !important; margin-left: 15%;
                  margin-right: 15%;
-                 margin-top: 12%;">
+                 margin-top: 8%;">
                 <h1 class="font-weight-semibold " style="color: white">Escribe el trámite o servicio<br>
                     que deseas realizar:</h1>
 
                 <div class="content-wrapper"> 
                     <div class="content-header" style="    text-align: -webkit-center;">
+                         <?= Html::beginForm(['/tramites/busqueda'], 'get') ?>
                         <div class="col-lg-6">                        
-                        <input type="text" class="form-control" id="Email" placeholder="Permiso">                                                                          
+                            <?= Html::textInput('q', '', ['placeholder' => 'Nombre o Palabra que describa el trámite.', 'class' => 'form-control']) ?>	
+                        </div>
+                        
                     </div>
-                    </div>
-                    
-
                 </div>
                 <div class="row">
                     <div class="col-lg-12">                      
-                        <a class=" btn-sm btn-success"  href="/user/login">Buscar</a>
-                        <a class="btn-sm btn-opacity-light mr-1"  href="/user/register">Busqueda avanzada</a>
+                        <button type="submit" class="btn  btn-success">Buscar</button>                        
+                    </div>
+                </div>
+                <?= Html::endForm() ?>
+                <br>
+                <div class="content-wrapper"> 
+                    <div class="content-header" style="    text-align: -webkit-center;">
+                        <h4 class="section-subtitle " style="color: white" >Por dependencia o secretaría:</h4>
+                        <div class="col-lg-5">     
+
+
+                            <?= Html::beginForm(['/tramites/busqueda'], 'get') ?>                                
+                            <?=
+                            Select2::widget([
+                                'name' => 'secretaria',
+                                'hideSearch' => true,
+                                'data' => $secretarias,
+                                'options' => [
+                                    'placeholder' => 'Seleccionar ...',
+                                    'onchange' => 'this.form.submit()',
+                                ],
+                            ]);
+                            ?>
+
+                            <?= Html::endForm() ?> 
+                        </div>
                     </div>
                 </div>
             </div>             
@@ -34,38 +63,136 @@ $this->title = 'My Yii Application';
 <div class="container">
     <section class="features-overview" id="features-section" >
         <div class="content-header">
-            <h2>How does it works</h2>
-            <h6 class="section-subtitle text-muted">One theme that serves as an easy-to-use operational toolkit<br>that meets customer's needs.</h6>
+            <h2>Trámites mas buscados</h2>
+            <!--<h6 class="section-subtitle text-muted">One theme that serves as an easy-to-use operational toolkit<br>that meets customer's needs.</h6>-->
+        </div>       
+    </section> 
+    <section class="customer-feedback" id="feedback-section">
+        <div class="row">
+            <!--            <div class="col-12 text-center pb-5">
+                            <h2>What our customers have to say</h2>
+                            <h6 class="section-subtitle text-muted m-0">Lorem ipsum dolor sit amet, tincidunt vestibulum.</h6>
+                        </div>-->
+            <?php foreach ($masbuscados as $buscados) { ?>
+            <div class="col-lg-6">
+                <div class="owl-item  grid-margin">
+                    <div class="card customer-cards">
+                        <div class="card-body" style="padding: 15px 15px 15px 15px !important;">                            
+                                <img src="/img/logo_1.png" width="100" alt="" class="" style="    max-width: 100px;float: left;">
+                                <span class="com-tagline">&nbsp;&nbsp;<a href="/index.php/tramites/view?id=<?= $buscados->tramites->id ?>"><?= $buscados->tramites->nombre_tramite ?></a></span>
+                                <hr>
+                            <div class="text-left">
+                                <!--<img src="/theme/images/face2.jpg" width="89" height="89" alt="" class="img-customer">-->
+                                <h6 class="card-title pt-3">Descripción:</h6>
+                                <p class="m-0 py-3 text-muted text-justify"><?= $buscados->tramites->descripcion_tramite ?></p>
+                                <div class="content-divider m-auto" style="background-color: red;"></div>
+                                <span class="card-title pt-3">Categoria:</span>
+                                <span class="m-0 py-3 text-muted">Nombre categoria</span>
+                                <div class="text-left">
+                                    <span class="card-title pt-3">Dependencia:</span>
+                                <span class="m-0 py-3 text-muted"><?= $buscados->tramites->secretarias->nombre ?></span>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <?php } ?>
         </div>
-        <a href="../../web/.htaccess"></a>
-        <div class="d-md-flex justify-content-between">
-            <div class="grid-margin d-flex justify-content-start">
-                <div class="features-width">
-                    <img src="/theme/images/Group12.svg" alt="" class="img-icons">
-                    <h5 class="py-3">Speed<br>Optimisation</h5>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <a href="#"><p class="readmore-link">Readmore</p></a>  
+         
+    </section> 
+     <section class="case-studies" id="case-studies-section">
+        <div class="row grid-margin text-center" style="justify-content: center">
+            <div class="col-12 text-center pb-5">
+                <h2>Estadísticas</h2>
+                <!--<h6 class="section-subtitle text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum.</h6>-->
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0" data-aos="zoom-in">
+                <div class="card color-cards">
+                    <div class="card-body p-0">
+                        <div class="bg-primary text-center card-contents">
+                            <div class="card-image">
+                                <img src="/img/oficina.png" class="case-studies-card-img" alt="">
+                            </div>  
+                            <div class="card-desc-box d-flex align-items-center justify-content-around">
+                                <div>
+                                    <h1 class="text-white pb-2 px-3" style="    font-size: 40pt;">17</h1>
+                                    <!--<button class="btn btn-white">Read More</button>-->
+                                </div>
+                            </div>
+                        </div>   
+                        <div class="card-details text-center pt-4">
+                            <h6 class="m-0 pb-1">Secretarías</h6>
+                            <!--<p>Seo, Marketing</p>-->
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="grid-margin d-flex justify-content-center">
-                <div class="features-width">
-                    <img src="/theme/images/Group7.svg" alt="" class="img-icons">
-                    <h5 class="py-3">SEO and<br>Backlinks</h5>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <a href="#"><p class="readmore-link">Readmore</p></a>
+            <div class="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card color-cards">
+                    <div class="card-body p-0">
+                        <div class="bg-warning text-center card-contents">
+                            <div class="card-image">
+                                <img src="/img/carpeta.png" class="case-studies-card-img" alt="">
+                            </div>  
+                            <div class="card-desc-box d-flex align-items-center justify-content-around">
+                                <div>
+                                    <h6 class="text-white pb-2 px-3" style="    font-size: 40pt;">314</h6>
+                                    <!--<button class="btn btn-white">Read More</button>-->
+                                </div>
+                            </div>
+                        </div>   
+                        <div class="card-details text-center pt-4">
+                            <h6 class="m-0 pb-1">Tramites</h6>
+                            <!--<p>Developing, Designing</p>-->
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="grid-margin d-flex justify-content-end">
-                <div class="features-width">
-                    <img src="/theme/images/Group5.svg" alt="" class="img-icons">
-                    <h5 class="py-3">Content<br>Marketing</h5>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <a href="#"><p class="readmore-link">Readmore</p></a>
+            <div class="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0" data-aos="zoom-in" data-aos-delay="400">
+                <div class="card color-cards">
+                    <div class="card-body p-0">
+                        <div class="bg-violet text-center card-contents">
+                            <div class="card-image">
+                                <img src="/img/search.png" class="case-studies-card-img" alt="">
+                            </div>  
+                            <div class="card-desc-box d-flex align-items-center justify-content-around">
+                                <div>
+                                    <h6 class="text-white pb-2 px-3" style="    font-size: 40pt;">675</h6>
+                                    <!--<button class="btn btn-white">Read More</button>-->
+                                </div>
+                            </div>
+                        </div>   
+                        <div class="card-details text-center pt-4">
+                            <h6 class="m-0 pb-1">Busquedas</h6>
+                            <!--<p>Designing, Developing</p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 stretch-card" data-aos="zoom-in" data-aos-delay="600">
+                <div class="card color-cards">
+                    <div class="card-body p-0">
+                        <div class="bg-success text-center card-contents">
+                            <div class="card-image">
+                                <img src="/img/prueba-en-linea.png" class="case-studies-card-img" alt="">
+                            </div>  
+                            <div class="card-desc-box d-flex align-items-center justify-content-around">
+                                <div>
+                                    <h6 class="text-white pb-2 px-3" style="    font-size: 40pt;">10</h6>
+                                    <!--<button class="btn btn-white">Read More</button>-->
+                                </div>
+                            </div>
+                        </div>   
+                        <div class="card-details text-center pt-4">
+                            <h6 class="m-0 pb-1">Trámites en línea</h6>
+                            <!--<p>Developing, Designing</p>-->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-    </section>     
+    </section>   
     <section class="digital-marketing-service" id="digital-marketing-section">
         <div class="row align-items-center">
             <div class="col-12 col-lg-7 grid-margin grid-margin-lg-0" data-aos="fade-right">
@@ -93,98 +220,7 @@ $this->title = 'My Yii Application';
             </div>
         </div>
     </section>     
-    <section class="case-studies" id="case-studies-section">
-        <div class="row grid-margin">
-            <div class="col-12 text-center pb-5">
-                <h2>Our case studies</h2>
-                <h6 class="section-subtitle text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum.</h6>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0" data-aos="zoom-in">
-                <div class="card color-cards">
-                    <div class="card-body p-0">
-                        <div class="bg-primary text-center card-contents">
-                            <div class="card-image">
-                                <img src="/theme/images/Group95.svg" class="case-studies-card-img" alt="">
-                            </div>  
-                            <div class="card-desc-box d-flex align-items-center justify-content-around">
-                                <div>
-                                    <h6 class="text-white pb-2 px-3">Know more about Online marketing</h6>
-                                    <button class="btn btn-white">Read More</button>
-                                </div>
-                            </div>
-                        </div>   
-                        <div class="card-details text-center pt-4">
-                            <h6 class="m-0 pb-1">Online Marketing</h6>
-                            <p>Seo, Marketing</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
-                <div class="card color-cards">
-                    <div class="card-body p-0">
-                        <div class="bg-warning text-center card-contents">
-                            <div class="card-image">
-                                <img src="/theme/images/Group108.svg" class="case-studies-card-img" alt="">
-                            </div>  
-                            <div class="card-desc-box d-flex align-items-center justify-content-around">
-                                <div>
-                                    <h6 class="text-white pb-2 px-3">Know more about Web Development</h6>
-                                    <button class="btn btn-white">Read More</button>
-                                </div>
-                            </div>
-                        </div>   
-                        <div class="card-details text-center pt-4">
-                            <h6 class="m-0 pb-1">Web Development</h6>
-                            <p>Developing, Designing</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0" data-aos="zoom-in" data-aos-delay="400">
-                <div class="card color-cards">
-                    <div class="card-body p-0">
-                        <div class="bg-violet text-center card-contents">
-                            <div class="card-image">
-                                <img src="/theme/images/Group126.svg" class="case-studies-card-img" alt="">
-                            </div>  
-                            <div class="card-desc-box d-flex align-items-center justify-content-around">
-                                <div>
-                                    <h6 class="text-white pb-2 px-3">Know more about Web Designing</h6>
-                                    <button class="btn btn-white">Read More</button>
-                                </div>
-                            </div>
-                        </div>   
-                        <div class="card-details text-center pt-4">
-                            <h6 class="m-0 pb-1">Web Designing</h6>
-                            <p>Designing, Developing</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3 stretch-card" data-aos="zoom-in" data-aos-delay="600">
-                <div class="card color-cards">
-                    <div class="card-body p-0">
-                        <div class="bg-success text-center card-contents">
-                            <div class="card-image">
-                                <img src="/theme/images/Group115.svg" class="case-studies-card-img" alt="">
-                            </div>  
-                            <div class="card-desc-box d-flex align-items-center justify-content-around">
-                                <div>
-                                    <h6 class="text-white pb-2 px-3">Know more about Software Development</h6>
-                                    <button class="btn btn-white">Read More</button>
-                                </div>
-                            </div>
-                        </div>   
-                        <div class="card-details text-center pt-4">
-                            <h6 class="m-0 pb-1">Software Development</h6>
-                            <p>Developing, Designing</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>     
+     
     <section class="customer-feedback" id="feedback-section">
         <div class="row">
             <div class="col-12 text-center pb-5">

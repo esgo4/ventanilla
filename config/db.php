@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=ventanilla',
+    'dsn' => 'mysql:host=localhost;dbname=cat',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',

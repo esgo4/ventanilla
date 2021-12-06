@@ -56,7 +56,7 @@ AppAsset::register($this);
                                 <a class="nav-link" href="#digital-marketing-section">Blog</a>  
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#feedback-section">Testimonials</a>
+                                <a class="nav-link" href="#feedback-section">Quejas y Sugerencias</a>
                             </li>
                             <?php 
                                 if(Yii::$app->user->isGuest){ ?>
@@ -80,7 +80,7 @@ AppAsset::register($this);
         <?= $content ?>
 
         <div class="container">
-            <section class="contact-details" id="contact-details-section">
+            <section class="contact-details" id="contact-details-section" style="margin-bottom: -10%;">
                 <div class="row text-center text-md-left">
                     <div class="col-12 col-md-6 col-lg-4 grid-margin">
                         <img src="/img/footer.png" alt="" class="pb-2" >
@@ -162,24 +162,7 @@ AppAsset::register($this);
             </div> 
         </div>
 
-        <!--        <main role="main" class="flex-shrink-0">
-                    <div class="container">
-        <?=
-        Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ])
-        ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-                    </div>
-                </main>-->
-
-        <!--<footer class="footer mt-auto py-3 text-muted">
-            <div class="container">
-                <p class="float-left">&copy; My Company <?= date('Y') ?></p>
-                <p class="float-right"><?= Yii::powered() ?></p>
-            </div>
-        </footer>-->
+       
 
         <?php $this->endBody() ?>
     </body>

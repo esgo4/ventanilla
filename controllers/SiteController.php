@@ -76,7 +76,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $secretarias = \yii\helpers\ArrayHelper::map(\app\models\Secretarias::find()->all(), 'id', 'nombre');
+        
+        $masbuscados = \app\models\TramitesBuscados::find()
+                ->groupBy(['tramites_id'])
+                ->orderBy(['count(tramites_id)' => SORT_DESC])
+                ->limit(5)
+                ->all();
+        
+        return $this->render('index',[
+            'secretarias' => $secretarias,
+            'masbuscados' => $masbuscados,
+        ]);
     }
     
     public function actionIndex2()

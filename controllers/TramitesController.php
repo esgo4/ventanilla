@@ -7,7 +7,6 @@ use app\models\TramitesBuscar;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 
 /**
  * TramitesController implements the CRUD actions for Tramites model.
@@ -46,6 +45,21 @@ class TramitesController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    public function actionBusqueda()
+    {
+        $searchModel = new TramitesBuscar();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        
+        $secretarias = \yii\helpers\ArrayHelper::map(\app\models\Secretarias::find()->all(), 'id', 'nombre');
+        
+
+        return $this->render('busqueda', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'secretarias' => $secretarias,
+        ]);
+    }
 
     /**
      * Displays a single Tramites model.
@@ -68,7 +82,6 @@ class TramitesController extends Controller
     public function actionCreate()
     {
         $model = new Tramites();
-        $documentos = ArrayHelper::map(\app\models\Documentos::find()->all(), 'id', 'nombre');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -80,7 +93,6 @@ class TramitesController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'documentos' => $documentos,
         ]);
     }
 
@@ -116,6 +128,31 @@ class TramitesController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+     public function RegistrarBusqueda($datos) {
+
+        foreach ($datos as $dato) {
+
+            $buscarip = \app\models\TramitesBuscados::find()->where(['ip' => $_SERVER['REMOTE_ADDR']])->andWhere(['tramites_id' => $dato['id']])->count();
+
+            if ($buscarip < 1) {
+
+                if (!empty($_SERVER['HTTP_CLIENT_IP']))
+                    return $_SERVER['HTTP_CLIENT_IP'];
+
+                if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+                    return $_SERVER['HTTP_X_FORWARDED_FOR'];
+                //
+
+                $modelbusqueda = new \app\models\TramitesBuscados();
+                $modelbusqueda->tramites_id = $dato['id'];
+                $modelbusqueda->ip = $_SERVER['REMOTE_ADDR'];
+                $modelbusqueda->fecha = date('Y-m-d');
+                $modelbusqueda->datetime = date('Y-m-d H:I:s');
+                $modelbusqueda->save();
+            }
+        }
     }
 
     /**
