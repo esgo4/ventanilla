@@ -50,21 +50,20 @@ AppAsset::register($this);
                                 <a class="nav-link" href="#header-section">Inicio<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#features-section">About</a>
+                                <a class="nav-link" href="#features-section">Mas buscados</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#digital-marketing-section">Blog</a>  
+                                <a class="nav-link" href="https://uruapan.gob.mx/" target="_blank">Gobierno</a>  
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#feedback-section">Quejas y Sugerencias</a>
                             </li>
-                            <?php 
-                                if(Yii::$app->user->isGuest){ ?>
+                            
                             <li class="nav-item btn-contact-us pl-4 pl-lg-0">
-                                <a class="btn btn-outline-danger"  href="/user/login">Entrar</a>
-                                <a class="btn btn-info"  href="/user/register">Registrate</a>
+                                <a class="btn btn-outline-danger"  href="http://linea-frontend/" target="_blank">Mi Cuenta</a>
+                                <!--<a class="btn btn-info"  href="/user/register">Registrate</a>-->
                             </li>
-                                <?php } ?>
+                                
                         </ul>
                     </div>
                 </div> 

@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
                     <div class="card customer-cards ">
                         <div class="card-body" style="padding: 15px 15px 15px 15px !important;">                            
                                 <img src="/img/logo_1.png" width="100" alt="" class="" style="    max-width: 100px;float: left;">
-                                <span class="com-tagline">&nbsp;&nbsp; <a href="/index.php/tramites/view?id=<?= $model->id ?>"> <?= $model->nombre_tramite ?></a></span>
+                                <span class="com-tagline">&nbsp;&nbsp; <a href="/index.php/tramites/view?id=<?= $model->id ?>"> <?=  mb_strtoupper($model->nombre_tramite,"utf-8") ?></a></span>
                                 <hr>
                             <div class="text-left">
                                 <!--<img src="/theme/images/face2.jpg" width="89" height="89" alt="" class="img-customer">-->
@@ -39,10 +39,10 @@ use yii\widgets\ActiveForm;
                                 <p class="m-0 py-3 text-muted text-justify"><?= $model->descripcion_tramite ?></p>
                                 <div class="content-divider m-auto" style="background-color: red;"></div>
                                 <span class="card-title pt-3">Categoria:</span>
-                                <span class="m-0 py-3 text-muted">Nombre categoria</span>
+                                <span class="m-0 py-3 text-muted"><?= $model->homoclave ?></span>
                                 <div class="text-left">
                                     <span class="card-title pt-3">Dependencia:</span>
-                                <span class="m-0 py-3 text-muted">Nombre dependencia</span>
+                                <span class="m-0 py-3 text-muted"><?= $model->secretarias->nombre ?></span>
                                 </div>                                
                             </div>
                         </div>

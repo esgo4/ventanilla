@@ -63,7 +63,7 @@ $this->title = 'My Yii Application';
 <div class="container">
     <section class="features-overview" id="features-section" >
         <div class="content-header">
-            <h2>Trámites mas buscados</h2>
+            <h2>Trámites más buscados</h2>
             <!--<h6 class="section-subtitle text-muted">One theme that serves as an easy-to-use operational toolkit<br>that meets customer's needs.</h6>-->
         </div>       
     </section> 
@@ -79,15 +79,15 @@ $this->title = 'My Yii Application';
                     <div class="card customer-cards">
                         <div class="card-body" style="padding: 15px 15px 15px 15px !important;">                            
                                 <img src="/img/logo_1.png" width="100" alt="" class="" style="    max-width: 100px;float: left;">
-                                <span class="com-tagline">&nbsp;&nbsp;<a href="/index.php/tramites/view?id=<?= $buscados->tramites->id ?>"><?= $buscados->tramites->nombre_tramite ?></a></span>
+                                <span class="com-tagline" >&nbsp;&nbsp;<a href="/index.php/tramites/view?id=<?= $buscados->tramites->id ?>" style="text-align: justify"><?= mb_strtoupper( $buscados->tramites->nombre_tramite,"utf-8") ?></a></span>
                                 <hr>
                             <div class="text-left">
                                 <!--<img src="/theme/images/face2.jpg" width="89" height="89" alt="" class="img-customer">-->
                                 <h6 class="card-title pt-3">Descripción:</h6>
-                                <p class="m-0 py-3 text-muted text-justify"><?= $buscados->tramites->descripcion_tramite ?></p>
+                                <p class=" text-justify" style="font-size: 15pt;font-family: arial"><?= $buscados->tramites->descripcion_tramite ?></p>
                                 <div class="content-divider m-auto" style="background-color: red;"></div>
                                 <span class="card-title pt-3">Categoria:</span>
-                                <span class="m-0 py-3 text-muted">Nombre categoria</span>
+                                <span class="m-0 py-3 text-muted"><?= $buscados->tramites->homoclave ?></span>
                                 <div class="text-left">
                                     <span class="card-title pt-3">Dependencia:</span>
                                 <span class="m-0 py-3 text-muted"><?= $buscados->tramites->secretarias->nombre ?></span>
