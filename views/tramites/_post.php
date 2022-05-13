@@ -32,6 +32,11 @@ use yii\widgets\ActiveForm;
                         <div class="card-body" style="padding: 15px 15px 15px 15px !important;">                            
                                 <img src="/img/logo_1.png" width="100" alt="" class="" style="    max-width: 100px;float: left;">
                                 <span class="com-tagline">&nbsp;&nbsp; <a href="/index.php/tramites/view?id=<?= $model->id ?>"> <?=  mb_strtoupper($model->nombre_tramite,"utf-8") ?></a></span>
+                                <?php if($model->activo == 1){?>
+                                <a class="btn btn-outline-danger" style="float:right"  href="http://sistemas1.uruapan.gob.mx:9292/" target="_blank">Trámite en línea</a>
+                                <br>
+                                <br>
+                                <?php }?>
                                 <hr>
                             <div class="text-left">
                                 <!--<img src="/theme/images/face2.jpg" width="89" height="89" alt="" class="img-customer">-->

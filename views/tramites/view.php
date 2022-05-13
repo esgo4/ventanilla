@@ -40,9 +40,10 @@ $this->title = $model->id;
                             <button class="btn btn-rounded btn-outline-danger">Contact us</button>
                         </div>          -->
         </div>
+       
     </section>
 
-    <section>
+<!--    <section>
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -87,7 +88,7 @@ $this->title = $model->id;
                 </div>
             </div>
         
-    </section>
+    </section>-->
 
 
 
